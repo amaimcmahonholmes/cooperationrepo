@@ -20,6 +20,7 @@ void loop() {
 
   int sensorValue = analogRead(A0);
   int analogValue = analogRead(A1);
+  int voltRead = digitalRead(D2);
 
   if (analogValue >= 500 && !resetTriggered) {
     startTime = millis();
@@ -29,6 +30,7 @@ void loop() {
   if (analogValue < 500) {
     resetTriggered = false;
   }
+  
 
   unsigned long elapsed = (millis() - startTime) / 1000;
 
