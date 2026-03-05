@@ -1,6 +1,7 @@
 #include <Wire.h>
 #include "rgb_lcd.h"
 
+
 rgb_lcd lcd;
 
 const int colorR = 255;
@@ -22,6 +23,7 @@ void loop() {
   int analogValue = analogRead(A1);
   int voltRead = digitalRead(D2);
 
+//if button clicked
   if (analogValue >= 500 && !resetTriggered) {
     startTime = millis();
     resetTriggered = true;
