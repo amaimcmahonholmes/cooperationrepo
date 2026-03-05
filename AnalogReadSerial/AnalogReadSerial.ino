@@ -1,3 +1,11 @@
+/*
+  This example code is in the public domain.
+
+  https://docs.arduino.cc/built-in-examples/basics/AnalogReadSerial/
+  modified by Eva conlon on 24/02/2026
+*/
+=======
+
 #include <Wire.h>
 #include "rgb_lcd.h"
 
