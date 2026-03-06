@@ -2,6 +2,7 @@
   This example code is in the public domain.
   We used the 'AnalogReadSerial' for some parts of the code as a small base.
 
+  Modified by Eva conlon on 24/02/2026
   Modified by Aoife McMahon Holmes on 06/03/2026
 */
 
