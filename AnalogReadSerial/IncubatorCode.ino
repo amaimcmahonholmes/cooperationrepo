@@ -1,8 +1,7 @@
 /*
   This example code is in the public domain.
 
-  https://docs.arduino.cc/built-in-examples/basics/AnalogReadSerial/
-  modified by Eva conlon on 24/02/2026
+  modified by Aoife McMahon Holmes on 06/03/2026
 */
 =======
 
@@ -41,7 +40,7 @@ void loop() {
     resetTriggered = false;
   }
   
-
+//
   unsigned long elapsed = (millis() - startTime) / 1000;
 
   lcd.setCursor(0, 0);
