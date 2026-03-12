@@ -5,12 +5,12 @@
   Modified by Eva conlon on 24/02/2026
   Modified by Aoife McMahon Holmes on 06/03/2026
 */
-#include <WiFiS3.h>
-#include <ArduinoJson.h>
-#include "arduino_secrets.h" 
-char ssid[] = SECRET_SSID;        // your network SSID (name)
-char pass[] = SECRET_PASS;    // your network password (use for WPA, or use as key for WEP)
-int status = WL_IDLE_STATUS;     // the WiFi radio's status
+// #include <WiFiS3.h>
+// #include <ArduinoJson.h>
+// #include "arduino_secrets.h" 
+// char ssid[] = SECRET_SSID;        // your network SSID (name)
+// char pass[] = SECRET_PASS;    // your network password (use for WPA, or use as key for WEP)
+// int status = WL_IDLE_STATUS;     // the WiFi radio's status
 
 
 #include <Wire.h>
@@ -47,27 +47,27 @@ void setup() {
   lcd.setRGB(colorR, colorG, colorB);
   Serial.begin(9600);
 
-  // check for the WiFi module:
-  if (WiFi.status() == WL_NO_MODULE) {
-    Serial.println("Communication with WiFi module failed!");
-    // don't continue
-    while (true);
-  }
-  // you're connected now, so print out the data:
-  Serial.print("You're connected to the network");
-  printCurrentNet();
-  printWifiData();
+  // // check for the WiFi module:
+  // if (WiFi.status() == WL_NO_MODULE) {
+  //   Serial.println("Communication with WiFi module failed!");
+  //   // don't continue
+  //   while (true);
+  // }
+  // // you're connected now, so print out the data:
+  // Serial.print("You're connected to the network");
+  // printCurrentNet();
+  // printWifiData();
 
 }
 
 void loop() {
-    // check the network connection once every 10 seconds:
- lcd.setCursor(0, 1);
- lcd.print(millis() / 1000);
+//     // check the network connection once every 10 seconds:
+//  lcd.setCursor(0, 1);
+//  lcd.print(millis() / 1000);
 
-  delay(10000);
-  printCurrentNet();
-  printWifiData();
+//   delay(10000);
+//   printCurrentNet();
+//   printWifiData();
 
 //the sensorValue is for the temperature sensor while the analogValue is for the 
   int sensorValue = analogRead(A0);
@@ -82,22 +82,18 @@ void loop() {
   if (analogValue < 500) {
     resetTriggered = false;
   }
-<<<<<<< Updated upstream:IncubatorCode/IncubatorCode.ino
+// <<<<<<< Updated upstream:IncubatorCode/IncubatorCode.ino
   
 //elapsed is converting milliseconds into seconds for the timer
   unsigned long elapsed = (millis() - startTime) / 1000;
 
 //formating the LCD screen
-=======
+// =======
 
-  unsigned long elapsed = (millis() - startTime) / 1000;
+  // unsigned long elapsed = (millis() - startTime) / 1000;
 
-    int a = analogRead(sensorValue);
-
-    float R = 1023.0/a-1.0;
-    R = R0*R;
-
-    float temperature = 1.0/(log(R/R0)/B+1/298.15)-273.15;
+ float resistance = (float)(1023-sensorValue)*10000/sensorValue;
+  float temperature = 1/(log(resistance/10000)/B+1/298.15)-273.15;
 
   lcd.setCursor(0, 0);
   lcd.print("Time: ");
@@ -114,7 +110,7 @@ void loop() {
   Serial.print("temperature = ");
   Serial.println(temperature);
   Serial.println(sensorValue);
-  Serial.println(R);
+  Serial.println(R0);
 
   delay(200);
 }
