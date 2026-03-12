@@ -17,12 +17,9 @@ int status = WL_IDLE_STATUS;     // the WiFi radio's status
 #include <math.h>
 #include "rgb_lcd.h"
 
-<<<<<<< Updated upstream:IncubatorCode/IncubatorCode.ino
 //We will add <Wifi.h> when we begin fully working on our internet component
 
 //getting lcd screen colour
-=======
->>>>>>> Stashed changes:AnalogReadSerial/AnalogReadSerial.ino
 rgb_lcd lcd;
 
 #if defined(ARDUINO_ARCH_AVR)
@@ -102,7 +99,6 @@ void loop() {
 
     float temperature = 1.0/(log(R/R0)/B+1/298.15)-273.15;
 
->>>>>>> Stashed changes:AnalogReadSerial/AnalogReadSerial.ino
   lcd.setCursor(0, 0);
   lcd.print("Time: ");
   lcd.print(elapsed);
