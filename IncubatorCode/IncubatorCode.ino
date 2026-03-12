@@ -5,6 +5,13 @@
   Modified by Eva conlon on 24/02/2026
   Modified by Aoife McMahon Holmes on 06/03/2026
 */
+#include <WiFiS3.h>
+#include <ArduinoJson.h>
+#include "arduino_secrets.h" 
+char ssid[] = SECRET_SSID;        // your network SSID (name)
+char pass[] = SECRET_PASS;    // your network password (use for WPA, or use as key for WEP)
+int status = WL_IDLE_STATUS;     // the WiFi radio's status
+
 
 #include <Wire.h>
 #include <math.h>
@@ -43,9 +50,28 @@ void setup() {
   lcd.setRGB(colorR, colorG, colorB);
   Serial.begin(9600);
 
+  // check for the WiFi module:
+  if (WiFi.status() == WL_NO_MODULE) {
+    Serial.println("Communication with WiFi module failed!");
+    // don't continue
+    while (true);
+  }
+  // you're connected now, so print out the data:
+  Serial.print("You're connected to the network");
+  printCurrentNet();
+  printWifiData();
+
 }
 
 void loop() {
+    // check the network connection once every 10 seconds:
+ lcd.setCursor(0, 1);
+ lcd.print(millis() / 1000);
+
+  delay(10000);
+  printCurrentNet();
+  printWifiData();
+
 //the sensorValue is for the temperature sensor while the analogValue is for the 
   int sensorValue = analogRead(A0);
   int analogValue = analogRead(A1);
