@@ -92,7 +92,7 @@ void loop() {
 
   // unsigned long elapsed = (millis() - startTime) / 1000;
 
- float resistance = (float)(1023-sensorValue)*10000/sensorValue;
+  float resistance = (float)(1023-sensorValue)*10000/sensorValue;
   float temperature = 1/(log(resistance/10000)/B+1/298.15)-273.15;
 
   lcd.setCursor(0, 0);
@@ -105,7 +105,10 @@ void loop() {
   lcd.setCursor(0, 1);
   lcd.print("Temp: ");
   lcd.println(temperature);
+  lcd.write(223);
+  lcd.print("C");
   lcd.print("     ");
+  
 
   Serial.print("temperature = ");
   Serial.println(temperature);
