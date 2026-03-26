@@ -104,9 +104,9 @@ void loop() {
 
   lcd.setCursor(0, 1);
   lcd.print("Temp: ");
-  lcd.println(temperature);
-  lcd.write(223);
-  lcd.print("C");
+  lcd.print(temperature);
+  lcd.print(char(223));
+  lcd.write("C");
   lcd.print("     ");
   
 
