@@ -42,10 +42,6 @@ const int colorB = 0;
 unsigned long startTime = 0;
 bool resetTriggered = false;
 
-//heating pad
-const int pinLed    = 3;
-const int BREATH_DELAY = 200000; // milliseconds
-
 
 void setup() {
   lcd.begin(16, 2);
@@ -63,7 +59,7 @@ void setup() {
   // printCurrentNet();
   // printWifiData();
 
-  pinMode(pinLed, OUTPUT);
+  pinMode(3, OUTPUT);
 
 }
 
@@ -124,18 +120,10 @@ void loop() {
 
   delay(200);
 
-      for(int i=0; i<256; i++)
-    {
-        analogWrite(pinLed, i);
-        delay(BREATH_DELAY);
-    }
-    delay(100);
-    
-    for(int i=254; i>=0; i--)
-    {
-        analogWrite(pinLed, i);
-        delay(BREATH_DELAY);
-    }
-    delay(500);
+  digitalWrite(3, HIGH);  // turn the LED on (HIGH is the voltage level)
+  delay(1000);                      // wait for a second
+  digitalWrite(3, LOW);   // turn the LED off by making the voltage LOW
+  delay(1000);                      // wait for a second
+
 
 }
