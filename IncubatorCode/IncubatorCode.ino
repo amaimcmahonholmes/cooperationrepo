@@ -42,6 +42,11 @@ const int colorB = 0;
 unsigned long startTime = 0;
 bool resetTriggered = false;
 
+//heating pad
+const int pinLed    = 3;
+const int BREATH_DELAY = 200000; // milliseconds
+
+
 void setup() {
   lcd.begin(16, 2);
   lcd.setRGB(colorR, colorG, colorB);
@@ -57,6 +62,8 @@ void setup() {
   // Serial.print("You're connected to the network");
   // printCurrentNet();
   // printWifiData();
+
+  pinMode(pinLed, OUTPUT);
 
 }
 
@@ -116,4 +123,19 @@ void loop() {
   Serial.println(R0);
 
   delay(200);
+
+      for(int i=0; i<256; i++)
+    {
+        analogWrite(pinLed, i);
+        delay(BREATH_DELAY);
+    }
+    delay(100);
+    
+    for(int i=254; i>=0; i--)
+    {
+        analogWrite(pinLed, i);
+        delay(BREATH_DELAY);
+    }
+    delay(500);
+
 }
