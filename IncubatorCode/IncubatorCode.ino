@@ -30,7 +30,7 @@ rgb_lcd lcd;
 #define debug  Serial
 #endif
 
-const int B = 4275000;
+const int B = 3975;
 const int R0 = 100000;       
 
 
@@ -95,7 +95,7 @@ void loop() {
 
   // unsigned long elapsed = (millis() - startTime) / 1000;
 
-  float resistance = (float)(1023-sensorValue)*10000/sensorValue;
+  float resistance = (float)(1023-sensorValue)*(10000/sensorValue);
   float temperature = 1/(log(resistance/10000)/B+1/298.15)-273.15;
 
   lcd.setCursor(0, 0);
@@ -116,6 +116,7 @@ void loop() {
   Serial.print("temperature = ");
   Serial.println(temperature);
   Serial.println(sensorValue);
+   Serial.println(resistance);
   Serial.println(R0);
 
   delay(200);
