@@ -5,11 +5,13 @@
 #define BLYNK_TEMPLATE_ID "TMPL4YeD_p0Ei"
 #define BLYNK_TEMPLATE_NAME "Quickstart Template"
 #define BLYNK_AUTH_TOKEN "U3R_65SJoZQ7neM7CK83u3a-bz8IWT68"
+#define LED_PIN 13
 
 #define BLYNK_PRINT Serial
 
-#include <WiFiS3.h>
-#include <BlynkSimpleWiFiS3.h>
+#include <SPI.h>
+#include <WiFi.h>
+#include <BlynkSimpleWifi.h>
 #include <ArduinoJson.h>
 #include "arduino_secrets.h"
 
@@ -20,6 +22,9 @@
 // WiFi
 char ssid[] = SECRET_SSID;
 char pass[] = SECRET_PASS;
+WidgetLED led1(V1);
+
+BlynkTimer timer;
 
 // LCD
 rgb_lcd lcd;
@@ -35,8 +40,6 @@ const int R0 = 100000;   // MUST match your hardware
 #define LED_PIN 3
 
 // Blynk
-WidgetLED led1(V1);
-BlynkTimer timer;
 
 // Timer + button logic
 unsigned long startTime = 0;
@@ -50,24 +53,34 @@ bool ledState = false;
 BLYNK_WRITE(V0)
 {
   int value = param.asInt();
-  digitalWrite(LED_PIN, value);
+  Blynk.virtualWrite(V0, value);
+  digitalWrite(13, value);  
 }
 
-BLYNK_CONNECTED()
+ BLYNK_CONNECTED()
 {
-  Blynk.setProperty(V3, "url",
-    "https://docs.blynk.io/en/getting-started/what-do-i-need-to-blynk/how-quickstart-device-was-made");
+  Blynk.setProperty(V3, "offImageUrl", "https://static-image.nyc3.cdn.digitaloceanspaces.com/general/fte/congratulations.png");
+  Blynk.setProperty(V3, "onImageUrl",  "https://static-image.nyc3.cdn.digitaloceanspaces.com/general/fte/congratulations_pressed.png");
+  Blynk.setProperty(V3, "url", "https://docs.blynk.io/en/getting-started/what-do-i-need-to-blynk/how-quickstart-device-was-made"); 
 }
 
 /* ---------------- FUNCTIONS ---------------- */
-
 // Blink LED without blocking
-void blinkLED() {
+void blinkLED() 
+{
   ledState = !ledState;
   digitalWrite(LED_PIN, ledState);
 }
 
-// Read sensors + update LCD + send to Blynk
+void myTimerEvent()
+{
+  // You can send any value at any time.
+  // Please don't send more that 10 values per second.
+  Blynk.virtualWrite(V2, millis() / 1000);
+  
+  int tempVal = analogRead(A0);    //tempVal can be used to read and display Analog Port 0
+  Blynk.virtualWrite(V4,tempVal);
+}
 void readSensorAndDisplay() {
 
   int sensorValue = analogRead(A0);  // temperature
@@ -105,10 +118,6 @@ void readSensorAndDisplay() {
   Serial.print("Temp = ");
   Serial.println(temperature);
 
-  // Send to Blynk
-  Blynk.virtualWrite(V2, elapsed);
-  Blynk.virtualWrite(V4, sensorValue);
-  Blynk.virtualWrite(V5, temperature);
 }
 
 /* ---------------- SETUP ---------------- */
@@ -127,6 +136,14 @@ void setup() {
   // Timers
   timer.setInterval(500L, readSensorAndDisplay); // sensor + LCD
   timer.setInterval(1000L, blinkLED);            // LED blink
+
+  timer.setInterval(1000L, myTimerEvent);
+
+  digitalWrite(3, HIGH);  // turn the LED on (HIGH is the voltage level)
+  delay(1000);                      // wait for a second
+  digitalWrite(3, LOW);   // turn the LED off by making the voltage LOW
+  delay(1000);                      // wait for a second
+
 }
 
 /* ---------------- LOOP ---------------- */
