@@ -5,13 +5,12 @@
   Modified by Eva conlon on 24/02/2026
   Modified by Aoife McMahon Holmes on 06/03/2026
 */
-// #include <WiFiS3.h>
-// #include <ArduinoJson.h>
-// #include "arduino_secrets.h" 
-// char ssid[] = SECRET_SSID;        // your network SSID (name)
-// char pass[] = SECRET_PASS;    // your network password (use for WPA, or use as key for WEP)
-// int status = WL_IDLE_STATUS;     // the WiFi radio's status
-
+#include <WiFiS3.h>
+#include <ArduinoJson.h>
+#include "arduino_secrets.h" 
+char ssid[] = SECRET_SSID;        // your network SSID (name)
+char pass[] = SECRET_PASS;    // your network password (use for WPA, or use as key for WEP)
+int status = WL_IDLE_STATUS;     // the WiFi radio's status
 
 #include <Wire.h>
 #include <math.h>
@@ -29,6 +28,10 @@ rgb_lcd lcd;
 #else
 #define debug  Serial
 #endif
+
+#define BLYNK_TEMPLATE_ID "TMPL4LGC99pRr"
+#define BLYNK_TEMPLATE_NAME "Quickstart Template"
+#define BLYNK_AUTH_TOKEN "5h_3HaU6yDrv6NxSBddFFKCM609TEWg5"
 
 const int B = 3975;
 const int R0 = 100000;       
