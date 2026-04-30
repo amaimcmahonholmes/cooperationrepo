@@ -72,15 +72,13 @@ void blinkLED()
   digitalWrite(LED_PIN, ledState);
 }
 
-void myTimerEvent()
-{
-  // You can send any value at any time.
-  // Please don't send more that 10 values per second.
-  Blynk.virtualWrite(V2, millis() / 1000);
+// void myTimerEvent()
+// {
+//   // You can send any value at any time.
+//   // Please don't send more that 10 values per second.
+//   Blynk.virtualWrite(V2, millis() / 1000);
   
-  int tempVal = analogRead(A0);    //tempVal can be used to read and display Analog Port 0
-  Blynk.virtualWrite(V4,tempVal);
-}
+// }
 void readSensorAndDisplay() {
 
   int sensorValue = analogRead(A0);  // temperature
@@ -118,7 +116,9 @@ void readSensorAndDisplay() {
   Serial.print("Temp = ");
   Serial.println(temperature);
   Serial.println(resistance);
-  Serial.println(sensorValue);
+  
+  Blynk.virtualWrite(V4,temperature);
+
 
 }
 
@@ -141,12 +141,21 @@ void setup() {
 
   timer.setInterval(1000L, myTimerEvent);
 
-  digitalWrite(3, HIGH);  // turn the LED on (HIGH is the voltage level)
-  delay(1000);                      // wait for a second
-  digitalWrite(3, LOW);   // turn the LED off by making the voltage LOW
-  delay(1000);                      // wait for a second
-
 }
+ BLYNK_WRITE(V5){
+  int value = param.asInt();
+
+  if (value = 1 ) {
+  digitalWrite(3, HIGH);  // turn the LED on (HIGH is the voltage level)
+  lcd.setRGB(0,255,0);
+  }
+  else {
+  digitalWrite(3, LOW);   // turn the LED off by making the voltage LOW
+  lcd.setRGB(255,0,0);
+  }
+ }
+
+
 
 /* ---------------- LOOP ---------------- */
 
