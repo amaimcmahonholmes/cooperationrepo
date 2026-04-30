@@ -139,13 +139,13 @@ void setup() {
   timer.setInterval(500L, readSensorAndDisplay); // sensor + LCD
   timer.setInterval(1000L, blinkLED);            // LED blink
 
-  timer.setInterval(1000L, myTimerEvent);
+  // timer.setInterval(1000L, myTimerEvent);
 
 }
  BLYNK_WRITE(V5){
   int value = param.asInt();
 
-  if (value = 1 ) {
+  if (value == 1 ) {
   digitalWrite(3, HIGH);  // turn the LED on (HIGH is the voltage level)
   lcd.setRGB(0,255,0);
   }
