@@ -117,6 +117,8 @@ void readSensorAndDisplay() {
   // Serial debug
   Serial.print("Temp = ");
   Serial.println(temperature);
+  Serial.println(resistance);
+  Serial.println(sensorValue);
 
 }
 
